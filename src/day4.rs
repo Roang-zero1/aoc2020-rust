@@ -28,3 +28,14 @@ pub fn input_generator<'a>(input: &'a str) -> Vec<HashMap<String, String>> {
   }
   return passports;
 }
+
+#[aoc(day4, part1)]
+pub fn solve_part1(passports: &Vec<HashMap<String, String>>) -> u8 {
+  let mut valid: u8 = 0;
+  for pass in passports {
+    if pass.len() == 8 || (pass.len() == 7 && !pass.contains_key("cid")) {
+      valid += 1
+    }
+  }
+  valid
+}
