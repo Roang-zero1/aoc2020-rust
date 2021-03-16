@@ -1,5 +1,6 @@
 use lazy_static::lazy_static;
 use regex::Regex;
+use std::convert::TryInto;
 
 pub struct PwCheck {
   min: u32,
@@ -25,4 +26,28 @@ pub fn input_generator(input: &str) -> Vec<PwCheck> {
       }
     })
     .collect()
+}
+
+#[aoc(day2, part1)]
+pub fn solve_part1(input: &[PwCheck]) -> u32 {
+  let mut valid: u32 = 0;
+  for pw in input {
+    let count = pw
+      .password
+      .matches(pw.character)
+      .count()
+      .try_into()
+      .unwrap();
+    /*print!(
+      "{}-{} {}: {} = {}",
+      pw.min, pw.max, pw.character, pw.password, count
+    );*/
+    if pw.min <= count && pw.max >= count {
+      //println!(": OK");
+      valid += 1;
+    } else {
+      //println!(": NOK");
+    }
+  }
+  return valid;
 }
