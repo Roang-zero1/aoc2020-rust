@@ -51,3 +51,21 @@ pub fn solve_part1(input: &[PwCheck]) -> u32 {
   }
   return valid;
 }
+
+#[aoc(day2, part2)]
+pub fn solve_part2(input: &[PwCheck]) -> u32 {
+  let mut valid: u32 = 0;
+  for pw in input {
+    let mut cnt: u32 = 0;
+    if pw.password.chars().nth((pw.min as usize) - 1).unwrap() == pw.character {
+      cnt += 1
+    }
+    if pw.password.chars().nth(pw.max as usize - 1).unwrap() == pw.character {
+      cnt += 1
+    }
+    if cnt == 1 {
+      valid += 1
+    }
+  }
+  return valid;
+}
