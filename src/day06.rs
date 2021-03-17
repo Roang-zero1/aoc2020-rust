@@ -39,3 +39,25 @@ pub fn solve_part1_map(customs_forms: &str) -> u16 {
     })
     .sum()
 }
+
+#[aoc(day6, part2)]
+pub fn solve_part2(customs_forms: &str) -> usize {
+  let customs_forms: Vec<&str> = customs_forms.split("\n\n").collect();
+  customs_forms
+    .iter()
+    .map(|form| {
+      let mut pool = ASCII_LOWER.to_vec();
+      for line in form.lines() {
+        let mut next_pool: Vec<char> = Vec::new();
+        for test_char in pool {
+          if line.matches(test_char).count() > 0 {
+            //println!("{}, {}", line, test_char);
+            next_pool.push(test_char)
+          }
+        }
+        pool = next_pool;
+      }
+      pool.len()
+    })
+    .sum()
+}
